@@ -713,7 +713,7 @@ const Homepage = () => {
             <Row>
               <Col sm="12" className="overflow-hidden">
                 <div className="d-flex align-items-center justify-content-between">
-                  <h4 className="main-title">Latest Movie</h4>
+                  <h4 className="main-title">Latest Movies</h4>
                   <Link className="iq-view-all" to="/movie-category">
                     View All
                   </Link>
