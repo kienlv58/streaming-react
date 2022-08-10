@@ -27,8 +27,6 @@ const AddMovie = () => {
             dispatch(setMovies(data))
           })
           history.push('/movie-list')
-
-        
         },
       });
     return (
@@ -51,9 +49,12 @@ const AddMovie = () => {
                                                         <Form.Control type="text" name="title" placeholder="Title" onChange={formik.handleChange} value={formik.values.title}/>
                                                     </Form.Group>
                                                     <div className="col-12 form_gallery form-group">
-                                                        <label id="gallery2" htmlFor="form_gallery-upload">Upload Image</label>
+                                                        <label id="gallery2" htmlFor="form_gallery-upload">{formik.values?.image?.name || "Upload Image"}</label>
                                                         <input data-name="#gallery2" id="form_gallery-upload" className="form_gallery-upload"
-                                                        type="file" accept=".png, .jpg, .jpeg" name="image" onChange={formik.handleChange} value={formik.values.image}/>
+                                                        type="file" accept=".png, .jpg, .jpeg" name="image" onChange={(event) => {
+                                                            formik.setFieldValue("image", event.target.files[0]);
+                                                          }}
+                                                          />
                                                     </div>
                                                     <Form.Group className="col-md-6">
                                                     <select className="form-control" id="exampleFormControlSelect1" name="category" onChange={formik.handleChange} value={formik.values.category}>
@@ -81,8 +82,10 @@ const AddMovie = () => {
                                             <Col lg="5">
                                                 <div className="d-block position-relative">
                                                     <div className="form_video-upload">
-                                                        <input type="file" accept="video/mp4,video/x-m4v,video/*" multiple name="videoFile" onChange={formik.handleChange} value={formik.values.videoFile}/>
-                                                        <p>Upload video</p>
+                                                        <input type="file" accept="video/mp4,video/x-m4v,video/*" multiple name="videoFile" onChange={(event) => {
+                                                            formik.setFieldValue("videoFile", event.target.files[0]);
+                                                          }}/>
+                                                        <p>{formik.values?.videoFile?.name || "Upload video"}</p>
                                                     </div>
                                                 </div>
                                             </Col>
@@ -104,8 +107,8 @@ const AddMovie = () => {
                                                 <Form.Control type="text" placeholder="Movie Duration" name="duration" onChange={formik.handleChange} value={formik.values.duration}/>
                                             </Col>
                                             <Form.Group className="col-12">
-                                                <Button type="submit" variant="primary">Submit</Button>{' '}
-                                                <Button type="reset" variant="danger">Cancel</Button>
+                                                <Button type="submit" variant="primary" disabled={formik.isSubmitting}>Submit</Button>{' '}
+                                                <Button type="reset" variant="danger" disabled={formik.isSubmitting}>Cancel</Button>
                                             </Form.Group>
                                         </Row>
                                     </Form>

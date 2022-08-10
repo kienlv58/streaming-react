@@ -1,10 +1,7 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, addDoc, doc } from 'firebase/firestore/lite';
-// const firebaseConfig = {
-//     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-//     authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-//     projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID
-// };
+import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore/lite';
+import { uploadBytesResumable, getDownloadURL, ref, getStorage } from 'firebase/storage';
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyBaA_-GpAHUl3oykOpZ_4_633zlNgNLph8",
@@ -17,6 +14,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
+const storage = getStorage(app);
 
 const APP_COLLECTION = {
     movies : "movies",
@@ -24,6 +22,12 @@ const APP_COLLECTION = {
 
 export async function addMovies(data){
     const moviesCollectionRef = collection(db, APP_COLLECTION.movies);
+    if(data.image){
+        data.image = await uploadFile(data.image);
+    }
+    if(data.videoFile){
+        data.videoFile = await uploadFile(data.videoFile);
+    }
     await addDoc(moviesCollectionRef, data).catch(e => {
         console.log(e);
     })
@@ -37,4 +41,37 @@ export async function getMovies(){
         return undefined;
     })
     return docs?.docs?.map(item => item.data()) || [];
+}
+
+export async function uploadFile(file){
+    return new Promise((resolve) => {
+        if(!file) {
+            resolve("")
+        }else {
+            const storageRef = ref(storage, `files/${file.name}`);
+
+            const uploadTask = uploadBytesResumable(storageRef, file);
+                uploadTask.on(
+                    "state_changed",
+                    (snapshot) => {
+                        const percent = Math.round(
+                            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                        );
+        
+                        console.log(`upload ${percent}%`)
+                    },
+                    (err) => {
+                        console.log(err)
+                        resolve("")
+                    },
+                    () => {
+                        // download url
+                        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                            resolve(url)
+                        });
+                    }
+                );
+        }
+    })
+    
 }
