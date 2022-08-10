@@ -1,23 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import { BrowserRouter } from 'react-router-dom';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
 //store
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from "react-redux";
 //reducer
-import Store from './store'
+import { Provider } from "./provider";
+import Store from "./store";
 
 ReactDOM.render(
   <React.Fragment>
-     <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Provider store={Store}>
-            <App />
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <ReduxProvider store={Store}>
+        <Provider>
+          <App />
         </Provider>
-      </BrowserRouter>
+      </ReduxProvider>
+    </BrowserRouter>
   </React.Fragment>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
