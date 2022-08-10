@@ -1,9 +1,9 @@
 import { Connection } from "@solana/web3.js";
 import { SolanaApiUrl, SolanaCluster } from "../constants/solana";
 
-const solanaConnection = new Connection(
-  "https://withered-falling-mountain.solana-mainnet.quiknode.pro/653dd9e05c615080b39df87aae06f45f1f46c1ec"
-);
+// const solanaConnection = new Connection(
+//   "https://withered-falling-mountain.solana-mainnet.quiknode.pro/653dd9e05c615080b39df87aae06f45f1f46c1ec"
+// );
 
 export const getClusterDetail = () => {
   console.log(process.env);
