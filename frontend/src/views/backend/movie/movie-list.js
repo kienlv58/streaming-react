@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import {useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { Dropdown, Row, Col, Container, Button } from 'react-bootstrap'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -11,23 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 //img
 import banner from '../../../assets/images/movie-banner/1.jpg'
-import banner2 from '../../../assets/images/movie-banner/2.jpg'
-import banner3 from '../../../assets/images/movie-banner/3.jpg'
 import img1 from '../../../assets/images/upcoming/01.jpg'
-import img2 from '../../../assets/images/upcoming/02.jpg'
-import img3 from '../../../assets/images/upcoming/03.jpg'
-import img4 from '../../../assets/images/upcoming/04.jpg'
-import img5 from '../../../assets/images/upcoming/05.jpg'
-import movie1 from '../../../assets/images/movies/01.jpg'
-import movie2 from '../../../assets/images/movies/02.jpg'
-import movie3 from '../../../assets/images/movies/03.jpg'
-import movie4 from '../../../assets/images/movies/04.jpg'
-import movie5 from '../../../assets/images/movies/05.jpg'
-import movie6 from '../../../assets/images/movies/06.jpg'
-import movie7 from '../../../assets/images/movies/07.jpg'
-import movie8 from '../../../assets/images/movies/08.jpg'
-import movie9 from '../../../assets/images/movies/09.jpg'
-import movie10 from '../../../assets/images/movies/10.jpg'
 
 // install Swiper modules
 SwiperCore.use([Navigation]);
@@ -40,7 +24,7 @@ const MovieList = () => {
             dispatch(setMovies({movies: data}))
           })
 
-    },[]);
+    },[dispatch]);
 
     const movies = useSelector((state) => state.movies?.data || [])
 

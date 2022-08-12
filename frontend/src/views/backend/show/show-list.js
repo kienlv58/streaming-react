@@ -2,8 +2,7 @@ import React, {useState, useEffect} from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-import { useHistory, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from "react-router-dom";
 import  {getMovieDetail} from '../../../firebase'
 //img
 import videojs from "video.js";
@@ -26,18 +25,6 @@ const ShowList = () => {
   useEffect(()=>{
       getMovieDetail(movieId).then(data => setMovieDetail(data))
   },[movieId]);
-  const videoJsOptions = {
-    autoplay: true,
-    controls: true,
-    responsive: true,
-    fluid: true,
-    sources: [
-      {
-        src: "https://firebasestorage.googleapis.com/v0/b/moira-streaming.appspot.com/o/y2meta.com-Edge%20of%20Night%20_%20Pentakill%20III_%20Lost%20Chapter%20_%20Riot%20Games%20Music-(1080p).mp4?alt=media&token=5cd3bb49-3dcf-4838-aacb-a63d940526a2",
-        type: "video/mp4",
-      },
-    ],
-  };
 
   const handlePlayerReady = (player) => {
     playerRef.current = player;

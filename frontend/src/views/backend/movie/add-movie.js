@@ -20,7 +20,6 @@ import upcoming2 from '../../../assets/images/upcoming/02.jpg'
 import upcoming3 from '../../../assets/images/upcoming/03.jpg'
 import upcoming4 from '../../../assets/images/upcoming/04.jpg'
 import upcoming5 from '../../../assets/images/upcoming/05.jpg'
-import video from '../../../assets/video/sample-video.mp4'
 
 // install Swiper modules
 SwiperCore.use([Navigation]);
