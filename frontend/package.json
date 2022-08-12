@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@nfteyez/sol-rayz": "^0.10.2",
+    "@reduxjs/toolkit": "^1.8.4",
     "@solana/wallet-adapter-react": "^0.15.4",
     "@solana/wallet-adapter-react-ui": "^0.9.6",
     "@solana/wallet-adapter-wallets": "^0.16.0",
@@ -12,6 +13,7 @@
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
     "bootstrap": "^4.6.0",
+    "firebase": "^9.9.2",
     "fslightbox-react": "^1.6.2-2",
     "gsap": "^3.8.0",
     "jquery": "^3.4.1",

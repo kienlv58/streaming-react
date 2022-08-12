@@ -1,7 +1,10 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+import { useHistory, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import  {getMovieDetail} from '../../../firebase'
 //img
 import videojs from "video.js";
 import episode1 from "../../../assets/images/episodes/01.jpg";
@@ -18,7 +21,11 @@ import VideoJS from "../../../components/video";
 
 const ShowList = () => {
   const playerRef = React.useRef(null);
-
+  const { movieId } = useParams();
+  const [movieDetail, setMovieDetail] = useState()
+  useEffect(()=>{
+      getMovieDetail(movieId).then(data => setMovieDetail(data))
+  },[movieId]);
   const videoJsOptions = {
     autoplay: true,
     controls: true,
@@ -51,7 +58,22 @@ const ShowList = () => {
         {/* <video className="video d-block" controls loop>
           <source src={video} type="video/mp4" />
         </video> */}
-        <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
+        {movieDetail &&(
+          <VideoJS
+            key={movieDetail?.id}
+            options={{
+                autoplay: true,
+                controls: true,
+                responsive: true,
+                fluid: true,
+                sources: [
+                  {
+                    src: movieDetail?.videoFile,
+                    type: "video/mp4",
+                  },
+                ],
+            }} onReady={handlePlayerReady} />
+        )}
       </div>
       <div className="main-content">
         <section className="movie-detail container-fluid">
@@ -59,7 +81,7 @@ const ShowList = () => {
             <Col lg="12">
               <div className="trending-info season-info g-border">
                 <h4 className="trending-text big-title text-uppercase mt-0">
-                  The Hero Camp
+                  {movieDetail?.title || "Unknown"}
                 </h4>
                 <div className="d-flex align-items-center text-white text-detail episode-name mb-0">
                   <span>S1E01</span>
@@ -68,11 +90,7 @@ const ShowList = () => {
                   </span>
                 </div>
                 <p className="trending-dec w-100 mb-0">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries.
+                  {movieDetail?.description}
                 </p>
                 <ul className="list-inline p-0 mt-4 share-icons music-play-lists">
                   <li>

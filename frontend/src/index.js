@@ -8,12 +8,12 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider as ReduxProvider } from "react-redux";
 //reducer
 import { Provider } from "./provider";
-import Store from "./store";
+import {store} from "./store";
 
 ReactDOM.render(
   <React.Fragment>
     <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <ReduxProvider store={Store}>
+      <ReduxProvider store={store}>
         <Provider>
           <App />
         </Provider>

@@ -1,7 +1,14 @@
-import {createStore, combineReducers} from 'redux'
+import {combineReducers} from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
 import Mode from './mode/rtlmode'
-export default createStore(
-    combineReducers({
-        mode: Mode
-    })
-)
+
+import moviesReducer from './movies/moviesSlice'
+const rootReducer = combineReducers({
+    mode: Mode,
+    movies: moviesReducer,
+
+})
+
+export const store = configureStore({
+    reducer: rootReducer,
+  })

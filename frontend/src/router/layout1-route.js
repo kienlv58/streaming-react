@@ -65,11 +65,11 @@ const Layout1Route = () => {
           <Route path="/show-category" component={CategoryList} />
 
           {/* Movie */}
-          <Route path="/movie-details" component={AddMovie} />
+          <Route path="/movie-details/:movieId" component={AddMovie} />
           <Route path="/movie-category" component={MovieList} />
 
           {/* Show */}
-          <Route path="/show-details" component={ShowList} />
+          <Route path="/show-details/:movieId" component={ShowList} />
 
           {/* homepage */}
           <Route path="/" exact component={Homepage} />
